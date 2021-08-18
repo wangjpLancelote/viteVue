@@ -1,18 +1,35 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
+  <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent } from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+import {
+  NConfigProvider,
+  NGlobalStyle,
+  NThemeEditor,
+  zhCN,
+  dateZhCN,
+} from "naive-ui";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-})
+    HelloWorld,
+    NConfigProvider,
+    NGlobalStyle,
+    NThemeEditor,
+  },
+  setup() {
+    return {
+      zhCN,
+      dateZhCN,
+    };
+  },
+});
 </script>
 
 <style>
