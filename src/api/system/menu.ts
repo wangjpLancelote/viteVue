@@ -1,4 +1,5 @@
 import http from '@/utils/axios';
+import { Layout } from "@/routers/constant";
 
 /**
  * @description: 根据用户id获取用户菜单
@@ -9,7 +10,7 @@ export function adminMenus() {
   //   method: 'GET',
   // });
   return new Promise((resolve, _reject) => {
-    resolve([]);
+    resolve([{ path: '/dashboard', name: '仪表盘', component: Layout, meta: { title: 'Dashboard', sort: 0 } }, { path: 'console', parent: '/dashboard', component: () => import("@/views/dashboard/console.vue") }]);
   });
 }
 
