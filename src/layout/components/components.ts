@@ -12,9 +12,20 @@ import {
   LogoutOutlined,
   UserOutlined,
   CheckOutlined,
+  DownOutlined,
+  CloseOutlined,
+  VerticalRightOutlined,
+  VerticalLeftOutlined,
+  ColumnWidthOutlined,
+  MinusOutlined,
 } from '@vicons/antd';
+import { Dropdown, Tabs, Card } from 'ant-design-vue';
 
 export default {
+  [Tabs.name]: Tabs,
+  [Tabs.TabPane.name]: Tabs.TabPane,
+  [Dropdown.name]: Dropdown,
+  [Card.name]: Card,
   SettingOutlined,
   SearchOutlined,
   MenuFoldOutlined,
@@ -28,4 +39,10 @@ export default {
   LogoutOutlined,
   UserOutlined,
   CheckOutlined,
+  DownOutlined,
+  CloseOutlined,
+  VerticalRightOutlined,
+  VerticalLeftOutlined,
+  ColumnWidthOutlined,
+  MinusOutlined,
 }
