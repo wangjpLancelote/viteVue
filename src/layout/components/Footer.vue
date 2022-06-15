@@ -9,13 +9,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-export default {
-  name: 'PageFooter',
-  components: {},
-  props: {
+  import { defineProps } from 'vue'
+  defineProps({
     collapsed: Boolean,
-  }
-}
+  })
 </script>
 <style lang="less" scoped>
   .page-footer {
