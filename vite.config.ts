@@ -21,11 +21,11 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: /\/#\//,
+        find: /#\//,
         replacement: pathResolve("types") + "/",
       },
       {
-        find: "@",
+        find: /@\//,
         replacement: pathResolve("src") + "/",
       },
     ],
@@ -33,6 +33,15 @@ export default defineConfig({
   },
   define: {
     __APP_INFO__: JSON.stringify(__APP_INFO__),
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {},
+        javascriptEnabled: true,
+        additionalData: `@import "src/styles/var.less";`,
+      },
+    },
   },
   /** 服务请求| 转发 */
   server: {},

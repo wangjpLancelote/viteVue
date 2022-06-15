@@ -1,1 +1,1 @@
-// export { setupNaive } from "";
+export { setupNaive } from "./naive";

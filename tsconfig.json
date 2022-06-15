@@ -13,7 +13,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": false,
     "experimentalDecorators": true,
     "lib": ["dom", "esnext"],
@@ -21,10 +21,14 @@
     "typeRoots": ["./node_modules/@types/", "./types"],
     "noImplicitAny": false,
     "skipLibCheck": true,
-      "paths": {
-        "/@/*": ["src/*"],
-        "/#/*": ["types/*"],
-      }
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts", 

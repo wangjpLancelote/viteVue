@@ -4,9 +4,15 @@ import { isNavigationFailure, Router } from "vue-router";
 
 /** 路由守卫 */
 export function createRouterGuards(router: Router) {
-  router.beforeEach(() => {});
+  router.beforeEach(async (to, from, next) => {
+    next();
+  });
 
-  router.afterEach(() => {});
+  router.afterEach((to, from, next) => {
+    // next();
+  });
 
-  router.onError(() => {});
+  router.onError((to, from, next) => {
+    // next();
+  });
 }

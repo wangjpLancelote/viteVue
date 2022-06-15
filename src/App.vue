@@ -1,35 +1,83 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <router-view />
+  <NConfigProvider
+    :locale="zhCN"
+    :theme="getDarkTheme"
+    :theme-overrides="getThemeOverrides"
+    :date-locale="dateZhCN"
+  >
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </NConfigProvider>
+  <transition name="slide-up">
+    <LockScreen />
+  </transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script lang="ts" setup>
 import {
-  NConfigProvider,
-  NGlobalStyle,
-  NThemeEditor,
   zhCN,
   dateZhCN,
+  createTheme,
+  inputDark,
+  datePickerDark,
+  darkTheme,
 } from "naive-ui";
+import { LockScreen } from "@/components/LockScreen";
+import { AppProvider } from "@/components/Application";
+// import { useLockscreenStore } from '@/store/modules/lockScreen';
+import { computed, onMounted, onUnmounted } from "vue";
+import { useDesignSettingStore } from "@/store/modules/designSetting";
+import { useRoute } from "vue-router";
+import { lighten } from "./utils";
 
-export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld,
-    NConfigProvider,
-    NGlobalStyle,
-    NThemeEditor,
-  },
-  setup() {
-    return {
-      zhCN,
-      dateZhCN,
-    };
-  },
+const route = useRoute();
+const designStore = useDesignSettingStore();
+let timer;
+// const timekeeping = () => {
+//   clearInterval(timer);
+//   if (route.name == "login" || isLock.value) return;
+//   // 设置不锁屏
+//   useLockscreen.setLock(false);
+//   // 重置锁屏时间
+//   useLockscreen.setLockTime();
+//   timer = setInterval(() => {
+//     // 锁屏倒计时递减
+//     useLockscreen.setLockTime(lockTime.value - 1);
+//     if (lockTime.value <= 0) {
+//       // 设置锁屏
+//       useLockscreen.setLock(true);
+//       return clearInterval(timer);
+//     }
+//   }, 1000);
+// };
+// onMounted(() => {
+//   document.addEventListener("mousedown", timekeeping);
+// });
+// onUnmounted(() => {
+//   document.removeEventListener("mousedown", timekeeping);
+// });
+
+/**
+ * @type import('naive-ui').GlobalThemeOverrides
+ */
+const getThemeOverrides = computed(() => {
+  const appTheme = designStore.appTheme;
+  const lightenStr = lighten(designStore.appTheme, 6);
+  return {
+    common: {
+      primaryColor: appTheme,
+      primaryColorHover: lightenStr,
+      primaryColorPressed: lightenStr,
+    },
+    LoadingBar: {
+      colorLoading: appTheme,
+    },
+  };
 });
+const getDarkTheme = computed(() =>
+  designStore.darkTheme ? darkTheme : undefined
+);
 </script>
 
 <style>

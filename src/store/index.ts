@@ -9,20 +9,21 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
-export const store = createStore<State>({
-  state() {
-    return {
-      count: 0,
-    };
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
-    },
-  },
-});
+// export const store = createStore<State>({
+//   state() {
+//     return {
+//       count: 0,
+//     };
+//   },
+//   mutations: {
+//     increment(state) {
+//       state.count++;
+//     },
+//   },
+// });
 
-export const piniaStore = createPinia();
+const store = createPinia();
 export const setupStore = (app: App<Element>) => {
-  return app.use(piniaStore);
+  return app.use(store);
 };
+export { store };

@@ -1,22 +1,34 @@
 {
   "name": "vitevueapp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:no-cache": "yarn clean:cache && npm run build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vicons/antd": "^0.11.0",
+    "axios": "^0.24.0",
     "date-fns": "^2.23.0",
+    "dotenv": "^10.0.0",
+    "echarts": "^5.2.1",
+    "fs-extra": "^10.0.0",
+    "lodash-es": "^4.17.21",
+    "makeit-captcha": "^1.2.5",
     "pinia": "^2.0.0-rc.4",
-    "vue": "^3.0.5",
+    "vue": "^3.2.16",
     "vue-router": "^4.0.11",
+    "vue-types": "^4.1.0",
+    "vuedraggable": "^2.24.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/compiler-sfc": "^3.0.5",
-    "naive-ui": "^2.16.4",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "naive-ui": "^2.19.11",
     "typescript": "^4.3.2",
     "vfonts": "^0.1.0",
     "vite": "^2.4.4",
