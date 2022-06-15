@@ -97,6 +97,7 @@ export const useAsyncRouteStore = defineStore({
       };
       const { getPermissionMode } = useProjectSetting();
       const permissionMode = unref(getPermissionMode);
+      console.log('>>>>permission', permissionMode);
       if (permissionMode === 'BACK') {
         // 动态获取菜单
         try {
