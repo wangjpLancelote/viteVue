@@ -2,7 +2,7 @@
   <h1>{{ aboutMessage }}</h1>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "about",

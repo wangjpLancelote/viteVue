@@ -7,7 +7,7 @@
     :collapsed-width="64"
     :collapsed-icon-size="20"
     :indent="24"
-    :expanded-keys="openKeys"
+    :expanded-keys="state.openKeys"
     :value="getSelectedKeys"
     @update:value="clickMenuItem"
     @update:expanded-keys="menuExpanded"

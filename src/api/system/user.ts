@@ -21,7 +21,10 @@ export function getUserInfo() {
   //   method: 'get',
   // });
   return new Promise((resolve, _reject) => {
-    resolve([]);
+    resolve({
+      permissions: ['*'],
+      avatar: '',
+    });
   });
 }
 

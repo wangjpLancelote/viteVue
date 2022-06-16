@@ -90,6 +90,7 @@ export const useAsyncRouteStore = defineStore({
       let accessedRouters;
       const permissionsList = data.permissions || [];
       const routeFilter = (route) => {
+        if (permissionsList.find(v => v === '*')) return true; // 含有*则表示所有权限
         const { meta } = route;
         const { permissions } = meta || {};
         if (!permissions) return true;
@@ -97,7 +98,6 @@ export const useAsyncRouteStore = defineStore({
       };
       const { getPermissionMode } = useProjectSetting();
       const permissionMode = unref(getPermissionMode);
-      console.log('>>>>permission', permissionMode);
       if (permissionMode === 'BACK') {
         // 动态获取菜单
         try {

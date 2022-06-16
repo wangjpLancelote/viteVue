@@ -1,7 +1,7 @@
 <template>
   <RouterView>
     <template #default="{ Component, route }">
-      <transition :name="getTransitionName">
+      <transition :name="getTransitionName ? 'fade' : ''">
         <keep-alive v-if="keepAliveComponents" :include="keepAliveComponents">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
@@ -14,7 +14,7 @@
 import { computed, defineComponent, unref, defineProps, defineEmits, defineExpose } from 'vue';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-  defineProps({
+  const props = defineProps({
     notNeedKey: {
       type: Boolean,
       default: false,

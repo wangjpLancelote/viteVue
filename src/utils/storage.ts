@@ -31,12 +31,14 @@ export const createStorage = ({
     /** 读取key
      *  key
      *  def 默认值
+     *  这里直接返回写死的token
      */
     get(key: string, def: any = null) {
+      return 'Token';
       const item = this.storage.getItem(this.getKey(key));
       if (item) {
         try {
-          const data = JSON.parse(item);
+          const data = JSON.parse(item as string);
           const { value, expire } = data;
           // 在有效期内直接返回
           if (expire === null || expire >= Date.now()) {
