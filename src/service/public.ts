@@ -4,6 +4,7 @@ import { store as StorePinia } from '@/store';
 import { Component } from 'vue';
 import { useSSRStoreWithOut } from '@/store/ssr';
 import { TSSRStore } from '@/entry-server';
+import {SSRBaseStore} from '@/store/ssrBase';
 
 
 export interface ReqConfig {
@@ -11,7 +12,7 @@ export interface ReqConfig {
   token: string;
 }
 
-export async function getAsyncData (router: Router, store: TSSRStore, isServer: boolean, reqConfig?: ReqConfig):Promise<void> {
+export async function getAsyncData (router: Router, store: SSRBaseStore, isServer: boolean, reqConfig?: ReqConfig):Promise<void> {
   
   return new Promise((resolve, reject) => {
     const { matched, fullPath, query } = router.currentRoute.value;
@@ -35,7 +36,7 @@ export async function getAsyncData (router: Router, store: TSSRStore, isServer: 
  *  所谓注册组件就是将App上的属性如router、store挂载到单个组件上
  *  registerModule 是Vue组件实例上的方法
  */
-export const registerModules = (components: Component[], router: Router, store: TSSRStore, isServer: boolean, reqConfig?: ReqConfig) => {
+export const registerModules = (components: Component[], router: Router, store: SSRBaseStore, isServer: boolean, reqConfig?: ReqConfig) => {
   return components.filter((c: any) => typeof c.registerModule === 'function').forEach((com: any) => {
     com.registerModule({
       route: router.currentRoute,
@@ -48,7 +49,7 @@ export const registerModules = (components: Component[], router: Router, store: 
 }
 
 /** 预取数据 */
-export const prefetchData = (components: Component[], router: Router, store: TSSRStore, isServer: boolean) => {
+export const prefetchData = (components: Component[], router: Router, store: SSRBaseStore, isServer: boolean) => {
   const asyncDataComponents: Component[] = components.filter((v: any) => typeof v.asyncData === 'function');
   return Promise.all(asyncDataComponents.map((asyncComponent: any) => {
     return asyncComponent.asyncData({
@@ -60,11 +61,15 @@ export const prefetchData = (components: Component[], router: Router, store: TSS
   }))
 }
 
+export const getRealUrl = () => {
+  
+}
+
 export interface IAsyncDataOption {
-  route: RouteLocation;
-  store: TSSRStore;
-  router: Router;
-  isServer: boolean;
+  route: RouteLocation; // 路由实例
+  store: SSRBaseStore; // store
+  router: Router; // 路由原型
+  isServer: boolean; // 是否服务端渲染
   reqConfig: ReqConfig;
 }
 

@@ -1,3 +1,4 @@
+import Store, { SSRBaseStore } from './store/ssrBase';
 import { createApp, App as APP } from "vue";
 import { store, key, setupStore } from "./store/index";
 import router, { setupRouter } from "./routers/Index";
@@ -8,6 +9,7 @@ import "makeit-captcha/dist/captcha.min.css";
 import { AppProvider } from "/@/components/Application";
 import { setupNaive } from "/@/plugins/index";
 import { _createApp } from "./utils/config";
+
 import {
   // create naive ui
   create,
@@ -17,6 +19,7 @@ import {
 import "vfonts/Lato.css";
 // 等宽字体
 import "vfonts/FiraCode.css";
+import { TSSRStore } from "./entry-server";
 
 // const naive = create();
 
@@ -48,7 +51,7 @@ void bootstrap();
 export default class Main {
   public app: APP = _createApp(App);
   public router: Router = router;
-  public store = store;
+  public store: SSRBaseStore = new Store();
   
   constructor () {
     const { app, router, store } = this;
