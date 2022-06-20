@@ -9,6 +9,8 @@ import "makeit-captcha/dist/captcha.min.css";
 import { AppProvider } from "/@/components/Application";
 import { setupNaive } from "/@/plugins/index";
 import { _createApp } from "./utils/config";
+import createAxios from './plugins/axios';
+import createMeta from './plugins/meta';
 
 import {
   // create naive ui
@@ -23,7 +25,7 @@ import { TSSRStore } from "./entry-server";
 
 // const naive = create();
 
-async function bootstrap() {
+export async function bootstrap() {
   const appProvider = createApp(AppProvider);
 
   const app = createApp(App);
@@ -44,7 +46,27 @@ async function bootstrap() {
   app.mount("#app", true);
 }
 
-/** 这里自执行函数，在SSR中需要官关闭自动执行 */
+/** 构建适用于服务端和客户端的boot */
+export const createBootstrap = async (isServer?: boolean) => {
+  const appProvider = _createApp(AppProvider);
+  const app = _createApp(App);
+  const meta = createAxios();
+  const $axios = createAxios();
+  setupNaive(app);
+  app.use(MakeitCaptcha);
+  app.use(store);
+  app.use(router);
+  appProvider.mount('#appProvider', true);
+  await setupRouter(app);
+  await router.isReady();
+
+  app.use(meta, { mixin: false });
+  app.use($axios);
+
+  app.mount('#app', true);
+}
+
+/** 这里自执行函数，在SSR中需要官关闭自动执行，这里调整为在entry-client执行 */
 void bootstrap();
 
 /** 暴漏出App实例供server.ts使用 */

@@ -1,21 +1,4 @@
-import Main from './main';
-import { getAsyncData, getRealUrl } from './service/public';
+import { createBootstrap } from "./main";
 
-/** 客户端代码，需要挂载DOM节点 */
-export default class EntryClient extends Main {
-  public constructor () {
-    super();
-    this.initState();
-    this.registerRouterHook();
-  }
-
-  /** 初始化状态 */
-  public initState () {
-
-  }
-
-  /** 注册路由钩子 */
-  public registerRouterHook () {
-
-  }
-}
+/** 客户端代码，需要挂载DOM节点, 这里和普通挂载方式一样 */
+createBootstrap();

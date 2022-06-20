@@ -12,6 +12,19 @@ export interface ReqConfig {
   token: string;
 }
 
+export const getUrlQuery = (query: string): Record<string, any> => {
+  if (!query) return {};
+  const arr = query.split('&');
+  const querys = {};
+  arr.forEach((i: string) => {
+    const keyVal = i.split('=');
+    return Object.assign(querys, {
+      [keyVal[0]]: keyVal[1],
+    })
+  });
+  return querys;
+}
+
 export async function getAsyncData (router: Router, store: SSRBaseStore, isServer: boolean, reqConfig?: ReqConfig):Promise<void> {
   
   return new Promise((resolve, reject) => {
@@ -75,16 +88,4 @@ export interface IAsyncDataOption {
 
 export interface IRegisterModuleOption {
   reqConfig: ReqConfig;
-}
-
-/** 对Vue组件实例挂载asyncData和registerModule方法 */
-declare module '@vue/runtime-core' {
-  export interface ComponentCustomOptions {
-    asyncData?: (option: IAsyncDataOption) => void;
-    registerModule?: (option: IRegisterModuleOption) => void
-  }
-  export interface ComponentCustomProperties {
-    asyncData?: (option: IAsyncDataOption) => void;
-    registerModule?: (option: IRegisterModuleOption) => void
-  }
 }
