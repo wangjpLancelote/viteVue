@@ -29,6 +29,9 @@ export async function bootstrap() {
   const appProvider = createApp(AppProvider);
 
   const app = createApp(App);
+
+  const meta = createAxios();
+  const $axios = createAxios();
   /** 挂载Naive UI */
   setupNaive(app);
   // app.use(naive); // naiveUI
@@ -42,6 +45,9 @@ export async function bootstrap() {
   await setupRouter(app);
   /** 路由准备好之后挂载实例 */
   await router.isReady();
+
+  app.use(meta, { mixin: false });
+  app.use($axios);
 
   app.mount("#app", true);
 }
