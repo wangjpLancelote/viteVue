@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite --mode development",
+    "devServer": "cross-env NODE_ENV=dev node server",
+    "devServer:seo": "cross-env NODE_ENV=dev:seo node server",
+    "prodServer": "cross-env NODE_ENV=production node server",
+    "prodServer:seo": "cross-env NODE_ENV=production:seo node server",
     "build": "vite build",
     "build:check": "vue-tsc --noEmit --skipLibCheck && vite build",
     "build:no-cache": "yarn clean:cache && npm run build",
@@ -17,6 +21,7 @@
     "@wefly/vue-store-next": "^1.0.1",
     "ant-design-vue": "^3.2.7",
     "axios": "^0.24.0",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
     "dotenv": "^10.0.0",
     "echarts": "^5.2.1",
