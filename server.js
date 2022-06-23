@@ -43,10 +43,12 @@ function isSpider (req) {
 
 async function createServer () {
   const app = express();
+  /** serve-static 是express 自带的模块 */
   app.use(require('serve-static')(resolve('run/client')))
 
   let vite, seoRender, spaTemplate, seoTemplate, manifest,
   if (isDev) {
+    /** 启动server 利用的就是vite的createServer 采用SSR模式 */
     vite = await require('vite').createServer({
       root: process.cwd(),
       logLevel: 'info',
@@ -83,7 +85,7 @@ async function createServer () {
         res.status(200).set({ 'Content-Type': 'text/html' }).end(JSON.stringify({ list: ['a', 'b', 'c'] }));
         return;
       }
-      let tempate, entryServer;
+      let template, entryServer;
       if (isDev) {
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, template);

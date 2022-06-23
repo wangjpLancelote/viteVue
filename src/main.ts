@@ -72,19 +72,5 @@ export const createBootstrap = async (isServer?: boolean) => {
   app.mount('#app', true);
 }
 
-/** 这里自执行函数，在SSR中需要官关闭自动执行，这里调整为在entry-client执行 */
+/** 这里自执行函数，在SSR中需要官关闭自动执行，这里调整为在entry-client执行, */
 void bootstrap();
-
-/** 暴漏出App实例供server.ts使用 */
-export default class Main {
-  public app: APP = _createApp(App);
-  public router: Router = router;
-  public store: SSRBaseStore = new Store();
-  
-  constructor () {
-    const { app, router, store } = this;
-    setupNaive(app);
-    app.use(store).use(router)
-    setupRouter(app);
-  }
-}
